@@ -9,17 +9,16 @@ const getJsonData = async () => {
   const jsonData = await responce.json();
 
   records = jsonData.map((item) => {
-    let cats = [];
+    let cats='';
     let headings = "";
     let petsNumber = item.pets?.length || 0;
 
     if (petsNumber > 0) {
+      let catsTemp='';
       headings = <h4>{item.gender}</h4>;
-      cats = item.pets.map(pet=>{return pet.type === "Cat" ?pet.name +"\n\r":''}).sort(); 
-
+      catsTemp = item.pets.map(pet=>{return pet.type === "Cat"&& pet.name}).sort(); 
+      cats= catsTemp.map(cat=>{return(<h6>{cat}</h6>)})
     }
-
-   console.log(cats)
 
     return (
       <div>
@@ -29,7 +28,6 @@ const getJsonData = async () => {
     );
   });
 };
-
 
 
 function App() {
